@@ -6,6 +6,8 @@ export const DELETE_POST = "DELETE_POST"
 export const DELETE_COMMENT = "DELETE_COMMENT"
 export const UPVOTE = "UPVOTE"
 export const DOWNVOTE = "DOWNVOTE"
+export const FETCH_POST_REQUEST = "FETCH_POST_REQUEST"
+export const FETCH_POST_SUCCESS = "FETCH_POST_SUCCESS"
 
 export function addPost (post){
   return {
@@ -61,5 +63,17 @@ export function downvote({post}){
   return {
     type: DOWNVOTE,
     post
+  }
+}
+
+export function fetchPostRequest(){
+  return {
+    type: FETCH_POST_REQUEST
+  }
+}
+
+export function fetchPostSuccess(){
+  return {
+    type: FETCH_POST_SUCCESS
   }
 }

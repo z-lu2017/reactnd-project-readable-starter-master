@@ -2,10 +2,25 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Post from './Post';
 import { Link } from 'react-router-dom'
-import {addPost} from '../actions';
+import {addPost, fetchPostRequest, fetchPostSuccess} from '../actions';
 
 class List extends Component {
+  constructor(){
+    super();
+  }
+
+  componentWillMount(){
+    this.props.boundFetchPostRequest();
+    console.log("after fetchpost", this.props)
+  }
+
+  componentDidMount(){
+    this.props.boundFetchPostSuccess();
+    console.log("after fetch success in did mount", this.props)
+  }
+
   render() {
+    console.log("what is props", this.props)
     return (
       <div className="listView">
       <div className="list">
@@ -26,7 +41,6 @@ class List extends Component {
       </div>
       <div className="newPost">
         <button><Link to={{pathname: '/new'}}>Create a post</Link></button>
-        {/* <button className="addPost" onClick={()=>{this.props.boundAddPost({title: "trying first post", author: "zzz"})}}>Add a post</button> */}
       </div>
     </div>
     );
@@ -41,7 +55,9 @@ function mapStateToProps(posts){
 
 function mapDispatchToProps (dispatch) {
   return {
-    boundAddPost: (post) => dispatch(addPost(post))
+    boundAddPost: (post) => dispatch(addPost(post)),
+    boundFetchPostRequest: ()=> dispatch(fetchPostRequest()),
+    boundFetchPostSuccess: ()=> dispatch(fetchPostSuccess())
   }
 }
 

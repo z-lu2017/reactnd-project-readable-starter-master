@@ -3,8 +3,16 @@ import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 
 class createPost extends Component {
+  constructor(){
+    super();
+    this.state = {
+      fireRedirect: false
+    }
+  }
+
   handleClick(e){
     e.preventDefault();
+    var that = this;
     var title = document.getElementById('title').value;
     var category = document.getElementById('category').value;
     var body = document.getElementById('body').value;
@@ -31,7 +39,7 @@ class createPost extends Component {
         deleted: deleted
       })
     }).then(function(resp){
-       <Redirect to="/"/>
+        that.setState({fireRedirect: true})
     }).catch(function(error) {
         console.log("error", error);
     });
@@ -76,6 +84,9 @@ class createPost extends Component {
         <div className="goBack">
           <button><Link to={{pathname: '/'}}>Go back to the post board</Link></button>
         </div>
+        {this.state.fireRedirect && (
+          <Redirect to={'/'}/>
+        )}
       </div>
     )}
 }

@@ -5,16 +5,12 @@ import { Link } from 'react-router-dom'
 import {addPost, fetchPosts} from '../actions';
 
 class List extends Component {
-  constructor(){
-    super();
-  }
 
   componentDidMount(){
     this.props.boundFetchPosts()
   }
 
   render() {
-    console.log("what is props", this.props)
     return (
       <div className="listView">
       <div className="list">
@@ -24,8 +20,8 @@ class List extends Component {
           {
             this.props.posts.reducers.length>0 ?
             this.props.posts.reducers.map( (post) => (
-              <li>
-              <Post title={post.title} key={post.title} author={post.author} timeStamp={post.timeStamp} cateogry={post.category} body={post.body} voteScore={post.voteScore}/>
+              <li key={post.id}>
+              <Post title={post.title}  author={post.author} timeStamp={post.timestamp} cateogry={post.category} body={post.body} voteScore={post.voteScore}/>
               </li>
             ))
             :<h3>No one has posted anything yet :( </h3>

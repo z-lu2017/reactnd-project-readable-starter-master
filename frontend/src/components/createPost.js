@@ -21,6 +21,7 @@ class createPost extends Component {
     var voteScore = 1;
     var deleted = false;
     var timeStamp = Date.now();
+    console.log("when creating post", timeStamp)
     fetch('http://localhost:3001/posts', {
       method: 'POST',
       headers: {

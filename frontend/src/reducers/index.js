@@ -19,9 +19,14 @@ function postBoard(state = initialBoardState, action){
   switch (action.type){
     case FETCH_POST_SUCCESS:
       var returnState = state;
-      returnState = returnState.concat(posts.filter(function (p) {
-        return returnState.indexOf(p) < 0 })
-      )
+      for (var i=0; i<posts.length;i++){
+        for (var j=0; j<returnState.length;j++){
+          if (posts[i].id === returnState[j].id){
+            posts.splice(i,1)
+          }
+        }
+      }
+      returnState = returnState.concat(posts)
       return returnState;
     case ADD_POST:
       var newAddState = state

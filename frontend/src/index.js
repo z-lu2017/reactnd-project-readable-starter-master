@@ -5,7 +5,6 @@ import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import { fetchPosts } from './actions'
 import reducers from './reducers';
 import { Router } from 'react-router-dom';
 import history from './components/history';

@@ -14,29 +14,15 @@ import {
 var initialBoardState = []
 
 function postBoard(state = initialBoardState, action){
-  const { post, pre } = action
+  const { post, pre, posts } = action
 
   switch (action.type){
-    case FETCH_POST_REQUEST:
-      fetch('http://localhost:3001/posts', {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': 'whatever-you-want'
-        },
-      }).then(function(resp){
-          resp.json().then(function(data){
-            var returnState = data
-            console.log("what is returnstate", returnState)
-            return returnState
-          })
-      }).catch(function(error) {
-          console.log("error", error);
-      });
     case FETCH_POST_SUCCESS:
-      console.log("what is state ?", state)
-      return state;
+      var returnState = state;
+      returnState = returnState.concat(posts.filter(function (p) {
+        return returnState.indexOf(p) < 0 })
+      )
+      return returnState;
     case ADD_POST:
       var newAddState = state
       newAddState.push(post)

@@ -1,3 +1,5 @@
+import fetch from 'cross-fetch'
+
 export const ADD_POST = "ADD_POST"
 export const EDIT_POST = "EDIT_POST"
 export const ADD_COMMENT = "ADD_COMMENT"
@@ -8,6 +10,8 @@ export const UPVOTE = "UPVOTE"
 export const DOWNVOTE = "DOWNVOTE"
 export const FETCH_POST_REQUEST = "FETCH_POST_REQUEST"
 export const FETCH_POST_SUCCESS = "FETCH_POST_SUCCESS"
+
+
 
 export function addPost (post){
   return {
@@ -66,14 +70,38 @@ export function downvote({post}){
   }
 }
 
-export function fetchPostRequest(){
+function fetchPostRequest(){
   return {
     type: FETCH_POST_REQUEST
   }
 }
 
-export function fetchPostSuccess(){
+function fetchPostSuccess(json){
   return {
-    type: FETCH_POST_SUCCESS
+    type: FETCH_POST_SUCCESS,
+    posts: json
+  }
+}
+
+export function fetchPosts() {
+
+  return function (dispatch) {
+    dispatch(fetchPostRequest())
+
+    return fetch('http://localhost:3001/posts', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'whatever-you-want'
+      },
+    })
+      .then(
+        response => response.json(),
+        error => console.log('An error occurred.', error)
+      )
+      .then(json =>
+        dispatch(fetchPostSuccess(json))
+      )
   }
 }

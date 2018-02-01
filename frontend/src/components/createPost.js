@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
+import NewForm from './form';
 
 class createPost extends Component {
   constructor(){
@@ -10,18 +10,16 @@ class createPost extends Component {
     }
   }
 
-  handleClick(e){
-    e.preventDefault();
+  submit(values){
     var that = this;
-    var title = document.getElementById('title').value;
-    var category = document.getElementById('category').value;
-    var body = document.getElementById('body').value;
-    var author = document.getElementById('author').value;
-    var id = this.guid();
+    var title = values.title;
+    var author = values.author;
+    var category = values.category;
+    var body = values.content;
+    var id = that.guid();
     var voteScore = 1;
     var deleted = false;
     var timeStamp = Date.now();
-    console.log("when creating post", timeStamp)
     fetch('http://localhost:3001/posts', {
       method: 'POST',
       headers: {
@@ -58,33 +56,8 @@ class createPost extends Component {
 
   render() {
     return (
-      <div className="newPost">
-        <div className="input">
-          <form action="/posts" method="post">
-            <label>Title: </label>
-            <input type="text" id="title" name="title"></input>
-            <br/>
-            <label>Select a Category: </label>
-            <select id="category">
-              <option value="Art">Art</option>
-              <option value="Business">Business</option>
-              <option value="Financial">Financial</option>
-              <option value="Lifestyle">Lifestyle</option>
-              <option value="PersonalCare">Personal Care</option>
-            </select>
-            <br/>
-            <label>Author: </label>
-            <input type="text" id="author" name="author"></input>
-            <br/>
-            <label>Content </label>
-            <textarea rows="5" cols="20" id="body"></textarea>
-            <br/>
-            <button type="button" onClick={(e)=>{this.handleClick(e)}}>Submit</button>
-          </form>
-        </div>
-        <div className="goBack">
-          <button><Link to={{pathname: '/'}}>Go back to the post board</Link></button>
-        </div>
+      <div>
+        <NewForm onSubmit={this.submit.bind(this)} />
         {this.state.fireRedirect && (
           <Redirect to={'/'}/>
         )}

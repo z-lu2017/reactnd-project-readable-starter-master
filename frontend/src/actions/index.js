@@ -10,7 +10,7 @@ export const UPVOTE = "UPVOTE"
 export const DOWNVOTE = "DOWNVOTE"
 export const FETCH_POST_REQUEST = "FETCH_POST_REQUEST"
 export const FETCH_POST_SUCCESS = "FETCH_POST_SUCCESS"
-
+export const LOAD = "LOAD"
 
 
 export function addPost (post){
@@ -20,10 +20,9 @@ export function addPost (post){
   }
 }
 
-export function editPost({ pre, post}){
+export function editPost(post){
   return {
     type: EDIT_POST,
-    pre,
     post
   }
 }
@@ -56,14 +55,14 @@ export function deleteComment({comment}){
   }
 }
 
-export function upvote({post}){
+export function upvote(post){
   return {
     type: UPVOTE,
     post
   }
 }
 
-export function downvote({post}){
+export function downvote(post){
   return {
     type: DOWNVOTE,
     post
@@ -104,4 +103,9 @@ export function fetchPosts() {
         dispatch(fetchPostSuccess(json))
       )
   }
+}
+
+export function load(data){
+  type: LOAD,
+  data
 }

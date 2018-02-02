@@ -11,7 +11,7 @@ export const DOWNVOTE = "DOWNVOTE"
 export const FETCH_POST_REQUEST = "FETCH_POST_REQUEST"
 export const FETCH_POST_SUCCESS = "FETCH_POST_SUCCESS"
 export const LOAD = "LOAD"
-
+export const SIGNAL_ID = "SIGNAL_ID"
 
 export function addPost (post){
   return {
@@ -108,4 +108,9 @@ export function fetchPosts() {
 export function load(data){
   type: LOAD,
   data
+}
+
+export function signalID(id){
+  type: SIGNAL_ID,
+  id
 }

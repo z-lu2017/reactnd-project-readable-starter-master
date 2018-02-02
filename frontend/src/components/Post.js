@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {deletePost, upvote, downvote } from '../actions';
+import {deletePost, upvote, downvote, signalID } from '../actions';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -68,6 +68,10 @@ class Post extends Component {
     });
   }
 
+  handleClickEdit(id){
+    this.props.boundSignalID(id);
+  }
+
   detailView(post){
 
   }
@@ -83,7 +87,7 @@ class Post extends Component {
         </div>
         <div className="edit">
           <button onClick={()=>{this.detailView(this.props.post)}}>View Detail</button>
-          <Link to={`/edit/${this.props.post.id}`}><button>Edit</button></Link>
+          <Link to={`/edit/${this.props.post.id}`}><button onClick={()=>{this.handleClickEdit(this.props.post.id)}}>Edit</button></Link>
           <button onClick={()=>{this.handleDelete(this.props.post)}}>Delete</button>
         </div>
         <div className="vote">
@@ -112,7 +116,8 @@ function mapDispatchToProps (dispatch) {
   return {
     boundDeletePost: (post) => dispatch(deletePost(post)),
     boundUpVote: (post) => dispatch(upvote(post)),
-    boundDownVote: (post) => dispatch(downvote(post))
+    boundDownVote: (post) => dispatch(downvote(post)),
+    boundSignalID: (id) => dispatch(signalID(id))
   }
 }
 

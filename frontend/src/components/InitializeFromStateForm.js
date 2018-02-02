@@ -42,6 +42,7 @@ InitializeFromStateForm = reduxForm({
 })(InitializeFromStateForm)
 
 function mapStateToProps(posts){
+  //TODO: GRAB ID OF THE SELECTED OBJECT AND SET INNITIALVALUES TO FILTERED OUT OBJECT
   console.log("state", posts)
   return {
     posts: posts,

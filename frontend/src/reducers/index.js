@@ -8,7 +8,8 @@ import {
   UPVOTE,
   DOWNVOTE,
   FETCH_POST_SUCCESS,
-  LOAD
+  LOAD,
+  SIGNAL_ID
 } from '../actions'
 import { combineReducers } from 'redux';
 
@@ -86,7 +87,17 @@ function comments(state = {}, action){
   }
 }
 
+function index(state = -1, action){
+  switch (action.type){
+    case SIGNAL_ID:
+      return state
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   posts,
   comments,
+  index,
 });

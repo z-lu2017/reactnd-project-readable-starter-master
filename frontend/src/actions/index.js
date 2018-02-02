@@ -105,12 +105,10 @@ export function fetchPosts() {
   }
 }
 
-export function load(data){
-  type: LOAD,
-  data
-}
 
 export function signalID(id){
-  type: SIGNAL_ID,
-  id
+  return{
+    type: SIGNAL_ID,
+    id
+}
 }

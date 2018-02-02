@@ -88,9 +88,10 @@ function comments(state = {}, action){
 }
 
 function index(state = -1, action){
+  const { id } = action
   switch (action.type){
     case SIGNAL_ID:
-      return state
+      return id
     default:
       return state
   }

@@ -5,25 +5,25 @@ import { load as loadAccount } from '../actions'
 
 let InitializeFromStateForm = props => {
   const { handleSubmit, load, pristine, reset, submitting } = props
-  console.log("thisprops", props)
+  console.log("props", props)
   return (
     <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="Title">Title</label>
-          <Field name="title" component="input" type="text" defaultValue={props.data.title} />
+          <Field name="title" component="input" type="text"  />
         </div>
         <div>
           <label htmlFor="Author">Author</label>
-          <Field name="author" component="input" type="text" defaultValue={props.data.author}/>
+          <Field name="author" component="input" type="text" />
         </div>
         <div>
-          <label htmlFor="Content">Content</label>
-          <Field name="content" component="input" type="text" defaultValue={props.data.body}/>
+          <label htmlFor="Body">Content</label>
+          <Field name="body" component="input" type="text"/>
         </div>
         <div>
             <label>Cateogry</label>
             <div>
-              <Field name="category" component="select" selected={props.data.cateogry}>
+              <Field name="category" component="select" >
                 <option></option>
                 <option value="react">React</option>
                 <option value="redux">Redux</option>
@@ -41,12 +41,12 @@ InitializeFromStateForm = reduxForm({
   form: 'initializeFromState' // a unique identifier for this form
 })(InitializeFromStateForm)
 
-// You have to connect() to any reducers that you wish to connect to yourself
-InitializeFromStateForm = connect(
-  state => ({
-    initialValues: state.data // pull initial values from account reducer
-  }),
-  { load: loadAccount } // bind account loading action creator
-)(InitializeFromStateForm)
+function mapStateToProps(posts){
+  console.log("state", posts)
+  return {
+    posts: posts,
+    initialValues: posts.reducers.posts[1]
+  }
+}
 
-export default InitializeFromStateForm
+export default connect(mapStateToProps)(InitializeFromStateForm)

@@ -74,7 +74,7 @@ class editPost extends Component {
     var that = this
     return (
       <div>
-        <InitializeFromStateForm onSubmit={that.submit} data={that.state.data}/>
+        <InitializeFromStateForm onSubmit={that.submit}/>
         {this.state.fireRedirect && (
           <Redirect to={'/'}/>
         )}

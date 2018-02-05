@@ -5,25 +5,24 @@ import { load as loadAccount } from '../actions'
 
 let InitializeFromStateForm = props => {
   const { handleSubmit, load, pristine, reset, submitting } = props
-  console.log("props", props)
   return (
     <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="Title">Title</label>
-          <Field name="title" component="input" type="text"  />
+          <Field name="title" component="input" type="text"  id="title"/>
         </div>
         <div>
           <label htmlFor="Author">Author</label>
-          <Field name="author" component="input" type="text" />
+          <Field name="author" component="input" type="text" id="author"/>
         </div>
         <div>
           <label htmlFor="Body">Content</label>
-          <Field name="body" component="input" type="text"/>
+          <Field name="body" component="input" type="text" id="body"/>
         </div>
         <div>
             <label>Cateogry</label>
             <div>
-              <Field name="category" component="select" >
+              <Field name="category" component="select" id="category">
                 <option></option>
                 <option value="react">React</option>
                 <option value="redux">Redux</option>
@@ -42,8 +41,6 @@ InitializeFromStateForm = reduxForm({
 })(InitializeFromStateForm)
 
 function mapStateToProps(posts){
-  //TODO: GRAB ID OF THE SELECTED OBJECT AND SET INNITIALVALUES TO FILTERED OUT OBJECT
-  console.log("state", posts.reducers.index)
   return {
     posts: posts,
     initialValues: posts.reducers.posts.filter(function(p){return p.id === posts.reducers.index})[0]

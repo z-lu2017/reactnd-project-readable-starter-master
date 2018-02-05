@@ -4,15 +4,16 @@ import List from './List'
 import {Route} from 'react-router-dom';
 import createPost from './createPost';
 import editPost from './editPost';
-import Category_List from './Category_List';
+import PostDetailView from './PostDetailView';
 
 class App extends Component {
   render() {
     return (
       <div className="app">
       <Route exact path='/' component={List}/>
-      <Route path='/new' component={createPost}/>
-      <Route path='/edit/:id' component={editPost}/>
+      <Route exact path='/new' component={createPost}/>
+      <Route path='/:category/:id' component={PostDetailView}/>
+      <Route exact path='/:id' component={editPost}/>
       </div>
     );
   }

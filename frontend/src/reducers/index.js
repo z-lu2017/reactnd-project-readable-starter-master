@@ -1,6 +1,6 @@
 import {
   ADD_POST,
-  EDIT_POST,
+  EDIT_POSTS,
   DELETE_POST,
   ADD_COMMENT,
   EDIT_COMMENT,
@@ -36,12 +36,11 @@ function posts(state = initialBoardState, action){
       newAddState.push(post)
       return newAddState
 
-    case EDIT_POST:
-      const newArray = state.posts.filter((p)=>{return p !== post})
-      var newState2 = Object.assign({}, state)
-      newState2.posts = newArray
-      newState2.posts.push(post)
-      return newState2
+    case EDIT_POSTS:
+      console.log("state", state)
+      var newArray2 = state.filter((p)=>{return p.id !== post.id})
+      newArray2.push(post)
+      return newArray2
 
     case DELETE_POST:
       var postCopy = post

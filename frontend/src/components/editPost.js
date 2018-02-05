@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import { load as loadAccount } from '../actions';
 import { Field, reduxForm } from 'redux-form';
 import InitializeFromStateForm from './InitializeFromStateForm';
+import {editPosts} from '../actions';
 
 class editPost extends Component {
   constructor(){
@@ -15,39 +16,25 @@ class editPost extends Component {
     }
   }
 
-  componentDidMount(){
-    var that = this;
-    var id = this.props.match.params.id;
-    fetch('http://localhost:3001/posts/'+id, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'whatever-you-want'
-      }
-    }).then(function(resp){
-      resp.json().then(function(data){
-        that.setState({data: data})
-      })
-    }).catch(function(error) {
-        console.log("error", error);
-    });
-  }
-
-  handleClick(e){
-    e.preventDefault();
+  handleClick(){
+    console.log("inclick")
     var that = this;
     var title = document.getElementById('title').value;
     var category = document.getElementById('category').value;
     var body = document.getElementById('body').value;
     var author = document.getElementById('author').value;
-    var id = this.guid();
-    var voteScore = 1;
+    var voteScore = this.state.data.voteScore;
     var deleted = false;
     var timeStamp = Date.now();
-    console.log("when creating post", timeStamp)
-    fetch('http://localhost:3001/posts', {
-      method: 'POST',
+    var id = this.props.match.params.id;
+    var obj = this.props.posts.reducers.posts.filter(function(p){return p.id === id})[0];
+    obj.title = title;
+    obj.body = body;
+    obj.author = author;
+    obj.category = category;
+    that.props.boundEditPost(obj)
+    fetch('http://localhost:3001/posts/' + id, {
+      method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -74,7 +61,7 @@ class editPost extends Component {
     var that = this
     return (
       <div>
-        <InitializeFromStateForm onSubmit={that.submit}/>
+        <InitializeFromStateForm onSubmit={()=>{that.handleClick()}}/>
         {this.state.fireRedirect && (
           <Redirect to={'/'}/>
         )}
@@ -88,4 +75,10 @@ function mapStateToProps(posts){
   }
 }
 
-export default connect(mapStateToProps)(editPost)
+function mapDispatchToProps (dispatch) {
+  return {
+    boundEditPost: (p) => dispatch(editPosts(p))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(editPost)

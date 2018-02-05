@@ -7,20 +7,20 @@ let NewForm = props => {
   return <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="Title">Title</label>
-        <Field name="title" component="input" type="text" />
+        <Field name="title" component="input" type="text" required="required" />
       </div>
       <div>
         <label htmlFor="Author">Author</label>
-        <Field name="author" component="input" type="text" />
+        <Field name="author" component="input" type="text" required="required" />
       </div>
       <div>
         <label htmlFor="Content">Content</label>
-        <Field name="content" component="input" type="text" />
+        <Field name="content" component="input" type="text" required="required" />
       </div>
       <div>
           <label>Cateogry</label>
           <div>
-            <Field name="category" component="select">
+            <Field name="category" component="select" required="required">
               <option></option>
               <option value="react">React</option>
               <option value="redux">Redux</option>

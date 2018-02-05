@@ -10,13 +10,17 @@ class List extends Component {
     this.props.boundFetchPosts()
   }
 
+  sortDate(){
+    
+  }
+
   render() {
     return (
       <div className="listView">
       <div className="list">
         <h2>Posts Board</h2>
         <div className = "sortPanel">
-          <button>Sort by date</button>
+          <button onClick={()=>{this.sortDate()}}>Sort by date</button>
           <button>Sort by vote score</button>
         </div>
         <div className="postsList">

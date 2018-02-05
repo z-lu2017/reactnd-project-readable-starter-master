@@ -73,7 +73,7 @@ class Post extends Component {
   }
 
   detailView(post){
-
+    this.setState({fireRedirect: true})
   }
 
   render() {
@@ -87,7 +87,7 @@ class Post extends Component {
         </div>
         <div className="edit">
           <button onClick={()=>{this.detailView(this.props.post)}}>View Detail</button>
-          <Link to={`/edit/${this.props.post.id}`}><button onClick={()=>{this.handleClickEdit(this.props.post.id)}}>Edit</button></Link>
+          <Link to={`/${this.props.post.id}`}><button onClick={()=>{this.handleClickEdit(this.props.post.id)}}>Edit</button></Link>
           <button onClick={()=>{this.handleDelete(this.props.post)}}>Delete</button>
         </div>
         <div className="vote">
@@ -100,7 +100,7 @@ class Post extends Component {
           <button onClick={()=>{this.handleDownvote(this.props.post)}}>Downvote</button>
         </div>
         {this.state.fireRedirect && (
-          <Redirect to={'/edit'}/>
+          <Redirect to={'/' + this.props.post.category + '/'+this.props.post.id}/>
         )}
       </div>
     )}

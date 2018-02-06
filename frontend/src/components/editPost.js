@@ -11,21 +11,16 @@ class editPost extends Component {
   constructor(){
     super();
     this.state = {
-      fireRedirect: false,
-      data: {}
+      fireRedirect: false
     }
   }
 
   handleClick(){
-    console.log("inclick")
     var that = this;
     var title = document.getElementById('title').value;
     var category = document.getElementById('category').value;
     var body = document.getElementById('body').value;
     var author = document.getElementById('author').value;
-    var voteScore = this.state.data.voteScore;
-    var deleted = false;
-    var timeStamp = Date.now();
     var id = this.props.match.params.id;
     var obj = this.props.posts.reducers.posts.filter(function(p){return p.id === id})[0];
     obj.title = title;
@@ -33,28 +28,7 @@ class editPost extends Component {
     obj.author = author;
     obj.category = category;
     that.props.boundEditPost(obj)
-    fetch('http://localhost:3001/posts/' + id, {
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'whatever-you-want'
-      },
-      body: JSON.stringify({
-        title: title,
-        category: category,
-        id: id,
-        timestamp: timeStamp,
-        body: body,
-        author: author,
-        voteScore: voteScore,
-        deleted: deleted
-      })
-    }).then(function(resp){
-        that.setState({fireRedirect: true})
-    }).catch(function(error) {
-        console.log("error", error);
-    });
+    that.setState({fireRedirect: true})
   }
 
   render() {

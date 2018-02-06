@@ -1,13 +1,19 @@
 import {
   ADD_POST,
-  EDIT_POSTS,
+  ADD_POST_SUCCESS,
+  EDIT_POST,
+  EDIT_POST_SUCCESS,
   DELETE_POST,
+  DELETE_POST_SUCCESS,
   ADD_COMMENT,
   EDIT_COMMENT,
   DELETE_COMMENT,
   UPVOTE,
+  UPVOTE_SUCCESS,
   DOWNVOTE,
+  DOWNVOTE_SUCCESS,
   FETCH_POST_SUCCESS,
+  FETCH_POST_REQUEST,
   LOAD,
   SIGNAL_ID
 } from '../actions'
@@ -19,9 +25,12 @@ function posts(state = initialBoardState, action){
   const { post, posts } = action
 
   switch (action.type){
+    case FETCH_POST_REQUEST:
+      return state
+
     case FETCH_POST_SUCCESS:
       var returnState = state;
-      for (var i=0; i<posts.length;i++){
+      for (var i=0; i<posts.length; i++){
         for (var j=0; j<returnState.length;j++){
           if (posts[i].id === returnState[j].id){
             posts.splice(i,1)
@@ -32,15 +41,20 @@ function posts(state = initialBoardState, action){
       return returnState;
 
     case ADD_POST:
-      var newAddState = state
-      newAddState.push(post)
-      return newAddState
+      var addState = state
+      addState.push(post)
+      return addState
 
-    case EDIT_POSTS:
-      console.log("state", state)
+    case ADD_POST_SUCCESS:
+      return state
+
+    case EDIT_POST:
       var newArray2 = state.filter((p)=>{return p.id !== post.id})
       newArray2.push(post)
       return newArray2
+
+    case EDIT_POST_SUCCESS:
+      return state
 
     case DELETE_POST:
       var postCopy = post
@@ -49,6 +63,9 @@ function posts(state = initialBoardState, action){
       newState3.push(postCopy)
       return newState3
 
+    case DELETE_POST_SUCCESS:
+      return state
+
     case UPVOTE:
       var postCopy2 = post
       postCopy2.voteScore += 1
@@ -56,12 +73,18 @@ function posts(state = initialBoardState, action){
       newState4.push(postCopy2)
       return newState4
 
+    case UPVOTE_SUCCESS:
+      return state
+
     case DOWNVOTE:
       var postCopy3 = post
       postCopy3.voteScore -= 1
       const newState5 = state.filter((p)=>{return p.id !== post.id})
       newState5.push(postCopy3)
       return newState5
+
+    case DOWNVOTE_SUCCESS:
+      return state
 
     case LOAD:
       return {

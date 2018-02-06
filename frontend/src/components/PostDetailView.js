@@ -12,7 +12,6 @@ class PostDetailView extends Component {
     var id = this.props.match.params.id;
     var obj = this.props.posts.reducers.posts.filter((p)=>{return p.id === id})[0];
     var date = new Date(obj.timestamp).toString()
-    console.log("inside render post detail", obj)
     return (
       <div className="post">
         <div className="info">

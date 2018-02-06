@@ -11,7 +11,7 @@ class List extends Component {
   }
 
   sortDate(){
-    
+
   }
 
   render() {
@@ -30,7 +30,7 @@ class List extends Component {
             this.props.posts.reducers.posts.map( function(post) {
               if (!post.deleted){
                 return (  <li key={post.id}>
-                  <Post post={post} title={post.title}  author={post.author} timeStamp={post.timestamp} cateogry={post.category} voteScore={post.voteScore}/>
+                  <Post post={post}/>
                   </li>)
               }
             }

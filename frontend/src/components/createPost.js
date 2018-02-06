@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import NewForm from './form';
+import {addPosts} from '../actions';
+import {connect} from 'react-redux';
+
 
 class createPost extends Component {
   constructor(){
@@ -11,37 +14,25 @@ class createPost extends Component {
   }
 
   submit(values){
-    var that = this;
     var title = values.title;
     var author = values.author;
     var category = values.category;
     var body = values.content;
-    var id = that.guid();
+    var id = this.guid();
     var voteScore = 1;
     var deleted = false;
-    var timeStamp = Date.now();
-    fetch('http://localhost:3001/posts', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'whatever-you-want'
-      },
-      body: JSON.stringify({
-        title: title,
-        category: category,
-        id: id,
-        timestamp: timeStamp,
-        body: body,
-        author: author,
-        voteScore: voteScore,
-        deleted: deleted
-      })
-    }).then(function(resp){
-        that.setState({fireRedirect: true})
-    }).catch(function(error) {
-        console.log("error", error);
-    });
+    var timestamp = Date.now();
+    this.props.boundAddPosts({
+      title: title,
+      author: author,
+      category: category,
+      body: body,
+      id: id,
+      voteScore: voteScore,
+      deleted: deleted,
+      timestamp: timestamp
+    })
+    this.setState({fireRedirect: true})
   }
 
   guid() {
@@ -65,4 +56,16 @@ class createPost extends Component {
     )}
 }
 
-export default createPost;
+function mapStateToProps(posts){
+  return {
+    posts: posts
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    boundAddPosts: (p) => dispatch(addPosts(p))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(createPost)

@@ -13,7 +13,7 @@ class App extends Component {
       <Route exact path='/' component={List}/>
       <Route exact path='/new' component={createPost}/>
       <Route path='/:category/:id' component={PostDetailView}/>
-      <Route exact path='/edit/:id' component={editPost}/>
+      <Route exact path='/edit' component={editPost}/>
       </div>
     );
   }

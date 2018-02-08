@@ -5,13 +5,42 @@ import { Link } from 'react-router-dom'
 import {fetchPosts} from '../actions';
 
 class List extends Component {
+  constructor(){
+    super();
+    this.state = {
+      sortFunction: function(a, b){
+        var title1 = a.title.toUpperCase()
+        var title2 = b.title.toUpperCase()
+        if (title1 < title2) {
+          return -1;
+        }
+        if (title1 > title2) {
+          return 1;
+        }
+
+        return 0;
+      }
+    }
+  }
 
   componentDidMount(){
     this.props.boundFetchPosts()
   }
 
   sortDate(){
+    this.setState({
+      sortFunction: function(a, b){
+        return a.timestamp - b.timestamp
+      }
+    })
+  }
 
+  sortScore(){
+    this.setState({
+      sortFunction: function(a, b){
+        return a.voteScore - b.voteScore
+      }
+    })
   }
 
   render() {
@@ -21,13 +50,13 @@ class List extends Component {
         <h2>Posts Board</h2>
         <div className = "sortPanel">
           <button onClick={()=>{this.sortDate()}}>Sort by date</button>
-          <button>Sort by vote score</button>
+          <button onClick={()=>{this.sortScore()}}>Sort by vote score</button>
         </div>
         <div className="postsList">
           <ol className="posts">
           {
             this.props.posts.reducers.posts.length>0 ?
-            this.props.posts.reducers.posts.map( function(post) {
+            this.props.posts.reducers.posts.sort(this.state.sortFunction).map( function(post) {
               if (!post.deleted){
                 return (  <li key={post.id}>
                   <Post post={post}/>

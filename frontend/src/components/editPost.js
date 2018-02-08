@@ -21,7 +21,7 @@ class editPost extends Component {
     var category = document.getElementById('category').value;
     var body = document.getElementById('body').value;
     var author = document.getElementById('author').value;
-    var id = this.props.match.params.id;
+    var id = this.props.posts.reducers.index;
     var obj = this.props.posts.reducers.posts.filter(function(p){return p.id === id})[0];
     obj.title = title;
     obj.body = body;

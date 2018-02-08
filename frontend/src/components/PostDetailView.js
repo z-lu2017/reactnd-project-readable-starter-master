@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { signalID } from '../actions';
+import {deletePosts, upvotePost, downvotePost, signalID } from '../actions';
+import { Redirect } from 'react-router';
 
 class PostDetailView extends Component {
+  constructor(){
+    super();
+    this.state = {
+      fireRedirect: false
+    }
+  }
+
   handleClickEdit(id){
     this.props.boundSignalID(id);
+  }
+
+  handleDelete(post){
+    this.props.boundDeletePosts(post);
+    this.setState({fireRedirect: true})
   }
 
   render() {
@@ -23,8 +36,8 @@ class PostDetailView extends Component {
           <p>{obj.body}</p>
         </div>
         <div className="edit">
-          {/* <Link to={`/edit/${this.props.post.id}`}><button onClick={()=>{this.handleClickEdit(this.props.post.id)}}>Edit</button></Link>
-          <button onClick={()=>{this.handleDelete(this.props.post)}}>Delete</button> */}
+          <Link to={`/edit`}><button onClick={()=>{this.handleClickEdit(obj.id)}}>Edit</button></Link>
+          <button onClick={()=>{this.handleDelete(obj)}}>Delete</button>
         </div>
         <div className="vote">
           {
@@ -33,6 +46,12 @@ class PostDetailView extends Component {
             :<h3>So far {-obj.voteScore} people have downvoted this post!</h3>
           }
         </div>
+        <div className="back">
+          <button><Link to={{pathname: '/'}}>Back to post wall</Link></button>
+        </div>
+        {this.state.fireRedirect && (
+          <Redirect to={'/'}/>
+        )}
       </div>
     );
   }
@@ -46,7 +65,8 @@ function mapStateToProps(posts){
 
 function mapDispatchToProps (dispatch) {
   return {
-    boundSignalID: (id) => dispatch(signalID(id))
+    boundSignalID: (id) => dispatch(signalID(id)),
+    boundDeletePosts: (post) => dispatch(deletePosts(post))
   }
 }
 

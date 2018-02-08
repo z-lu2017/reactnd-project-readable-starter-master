@@ -30,9 +30,14 @@ function posts(state = initialBoardState, action){
 
     case FETCH_POST_SUCCESS:
       var returnState = state;
+      for (var k=0; k<returnState.length; k++){
+        if (returnState[k].deleted){
+          returnState.splice(k,1)
+        }
+      }
       for (var i=0; i<posts.length; i++){
         for (var j=0; j<returnState.length;j++){
-          if (posts[i].id === returnState[j].id){
+          if (posts[i].id === returnState[j].id && (!posts[i].deleted)){
             posts.splice(i,1)
           }
         }

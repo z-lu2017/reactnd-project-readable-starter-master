@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Post from './Post';
 import { Link } from 'react-router-dom'
 import {fetchPosts} from '../actions';
+import './List.css';
 
 class List extends Component {
   constructor(){
@@ -52,6 +53,16 @@ class List extends Component {
           <button onClick={()=>{this.sortDate()}}>Sort by date</button>
           <button onClick={()=>{this.sortScore()}}>Sort by vote score</button>
         </div>
+        <div className = "categoryView">
+          <div className="dropdown">
+            <button className="dropbtn">View by Category</button>
+            <div className="dropdown-content">
+              <Link to='views/posts/react'>React</Link>
+              <Link to='views/posts/redux'>Redux</Link>
+              <Link to='views/posts/udacity'>Udacity</Link>
+            </div>
+          </div>
+        </div>
         <div className="postsList">
           <ol className="posts">
           {
@@ -70,7 +81,7 @@ class List extends Component {
         </div>
       </div>
       <div className="newPost">
-        <button><Link to={{pathname: '/new'}}>Create a post</Link></button>
+        <button><Link to={{pathname: '/new/post/create'}}>Create a post</Link></button>
       </div>
     </div>
     );

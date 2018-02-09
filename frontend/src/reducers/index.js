@@ -40,18 +40,12 @@ function posts(state = initialBoardState, action){
           posts.splice(l,1)
         }
       }
-      for (var i=0; i<posts.length; i++){
-        for (var j=0; j<returnState.length;j++){
-          if (posts[i].id === returnState[j].id ){
-            posts.splice(i,1)
-          }
-        }
-      }
+
       returnState = returnState.concat(posts)
-      for (var i=0; i<returnState.length; i++){
-        for (var j=0; j<returnState.length; j++){
-          if (returnState[i].id === returnState[j].id && i !== j){
-            returnState.splice(j,1)
+      for (var m=0; m<returnState.length; m++){
+        for (var n=0; n<returnState.length; n++){
+          if (returnState[m].id === returnState[n].id && m !== n){
+            returnState.splice(n,1)
           }
         }
       }
@@ -68,10 +62,10 @@ function posts(state = initialBoardState, action){
     case EDIT_POST:
       var newArray2 = state.filter((p)=>{return p.id !== post.id})
       newArray2.push(post)
-      for (var i=0; i<newArray2.length; i++){
-        for (var j=0; j<newArray2.length; j++){
-          if (newArray2[i].id === newArray2[j].id && i !== j){
-            newArray2.splice(j,1)
+      for (var a=0; a<newArray2.length; a++){
+        for (var b=0; b<newArray2.length; b++){
+          if (newArray2[a].id === newArray2[b].id && a !== b){
+            newArray2.splice(b,1)
           }
         }
       }

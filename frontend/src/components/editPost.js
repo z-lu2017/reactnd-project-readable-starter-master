@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import {connect} from 'react-redux';
-import { load as loadAccount } from '../actions';
-import { Field, reduxForm } from 'redux-form';
 import InitializeFromStateForm from './InitializeFromStateForm';
 import {editPosts} from '../actions';
 

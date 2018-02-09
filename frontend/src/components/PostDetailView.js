@@ -21,6 +21,15 @@ class PostDetailView extends Component {
     this.setState({fireRedirect: true})
   }
 
+  handleUpvote(post){
+    this.props.boundUpVote(post)
+  }
+
+  handleDownvote(post){
+    this.props.boundDownVote(post)
+  }
+
+
   render() {
     var id = this.props.match.params.id;
     var obj = this.props.posts.reducers.posts.filter((p)=>{return p.id === id})[0];
@@ -45,6 +54,8 @@ class PostDetailView extends Component {
             <h3>So far {obj.voteScore} people have upvoted this post!</h3>
             :<h3>So far {-obj.voteScore} people have downvoted this post!</h3>
           }
+          <button onClick={()=>{this.handleUpvote(obj)}}>Upvote</button>
+          <button onClick={()=>{this.handleDownvote(obj)}}>Downvote</button>
         </div>
         <div className="back">
           <button><Link to={{pathname: '/'}}>Back to post wall</Link></button>
@@ -66,7 +77,9 @@ function mapStateToProps(posts){
 function mapDispatchToProps (dispatch) {
   return {
     boundSignalID: (id) => dispatch(signalID(id)),
-    boundDeletePosts: (post) => dispatch(deletePosts(post))
+    boundDeletePosts: (post) => dispatch(deletePosts(post)),
+    boundUpVote: (post) => dispatch(upvotePost(post)),
+    boundDownVote: (post) => dispatch(downvotePost(post))
   }
 }
 

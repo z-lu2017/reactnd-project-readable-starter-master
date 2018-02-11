@@ -6,6 +6,8 @@ import createPost from './createPost';
 import editPost from './editPost';
 import PostDetailView from './PostDetailView';
 import categoryView from './categoryView';
+import createComment from './createComment';
+import editComment from './editComment';
 
 class App extends Component {
   render() {
@@ -16,6 +18,8 @@ class App extends Component {
       <Route exact path='/:category/:id' component={PostDetailView}/>
       <Route exact path='/edit' component={editPost}/>
       <Route exact path='/views/posts/:category' component={categoryView}/>
+      <Route exact path='/new/comment/create' component={createComment}/>
+      <Route exact path='/edit/comments/:id' component={editComment}/>
       </div>
     );
   }

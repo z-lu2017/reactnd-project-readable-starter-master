@@ -30,7 +30,8 @@ class createPost extends Component {
       id: id,
       voteScore: voteScore,
       deleted: deleted,
-      timestamp: timestamp
+      timestamp: timestamp,
+      commentCount: 0
     })
     this.setState({fireRedirect: true})
   }

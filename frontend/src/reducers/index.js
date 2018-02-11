@@ -5,9 +5,6 @@ import {
   EDIT_POST_SUCCESS,
   DELETE_POST,
   DELETE_POST_SUCCESS,
-  ADD_COMMENT,
-  EDIT_COMMENT,
-  DELETE_COMMENT,
   UPVOTE,
   UPVOTE_SUCCESS,
   DOWNVOTE,
@@ -15,7 +12,19 @@ import {
   FETCH_POST_SUCCESS,
   FETCH_POST_REQUEST,
   LOAD,
-  SIGNAL_ID
+  SIGNAL_ID,
+  FETCH_POST_COMMENT,
+  FETCH_COMMENT_SUCCESS,
+  UPVOTECOMMENT,
+  UPVOTECOMMENTSUCCESS,
+  DOWNVOTECOMMENT,
+  DOWNVOTECOMMENTSUCCESS,
+  ADD_COMMENT,
+  ADD_COMMENT_SUCCESS,
+  DELETE_COMMENT,
+  DELETE_COMMENT_SUCCESS,
+  EDIT_COMMENT,
+  EDIT_COMMENT_SUCCESS,
 } from '../actions'
 import { combineReducers } from 'redux';
 
@@ -35,7 +44,7 @@ function posts(state = initialBoardState, action){
           returnState.splice(k,1)
         }
       }
-      for (var l=0; l<returnState.length; l++){
+      for (var l=0; l<posts.length; l++){
         if (posts[l].deleted){
           posts.splice(l,1)
         }
@@ -114,14 +123,91 @@ function posts(state = initialBoardState, action){
   }
 }
 
-function comments(state = {}, action){
+var initialComments = []
+
+function comments(state = initialComments, action){
+  const { comments, comment } = action
+
   switch(action.type){
+    case FETCH_POST_COMMENT:
+      return state
+
+    case FETCH_COMMENT_SUCCESS:
+      var returnState = state;
+      for (var q=0; q<returnState.length; q++){
+        if (returnState[q].deleted || returnState[q].parentDeleted){
+          returnState.splice(q,1)
+        }
+      }
+      for (var w=0; w<comments.length; w++){
+        if (comments[w].deleted || comments[w].parentDeleted){
+          comments.splice(w,1)
+        }
+      }
+
+      returnState = returnState.concat(comments)
+      for (var e=0; e<returnState.length; e++){
+        for (var r=0; r<returnState.length; r++){
+          if (returnState[e].id === returnState[r].id && e !== r){
+            returnState.splice(r,1)
+          }
+        }
+      }
+      return returnState;
+
+    case UPVOTECOMMENT:
+      var commentCopy = comment
+      commentCopy.voteScore += 1
+      const commentState = state.filter((c)=>{return c.id !== comment.id})
+      commentState.push(commentCopy)
+      return commentState
+
+    case UPVOTECOMMENTSUCCESS:
+      return state
+
+    case DOWNVOTECOMMENT:
+      var commentCopy2 = comment
+      commentCopy2.voteScore -= 1
+      const commentState2 = state.filter((c)=>{return c.id !== comment.id})
+      commentState2.push(commentCopy2)
+      return commentState2
+
+    case DOWNVOTECOMMENTSUCCESS:
+      return state
+
     case ADD_COMMENT:
+      var addStateComment = state
+      addStateComment.push(comment)
+      return addStateComment
+
+    case ADD_COMMENT_SUCCESS:
       return state
+
     case DELETE_COMMENT:
+      var commentCopy = comment
+      commentCopy.deleted = !commentCopy.deleted
+      const newStateComment3 = state.filter((c)=>{return c.id !== comment.id})
+      newStateComment3.push(commentCopy)
+      return newStateComment3
+
+    case DELETE_COMMENT_SUCCESS:
       return state
+
     case EDIT_COMMENT:
+      var newArrayComment2 = state.filter((c)=>{return c.id !== comment.id})
+      newArrayComment2.push(comment)
+      for (var o=0; o<newArrayComment2.length; o++){
+        for (var p=0; p<newArrayComment2.length; p++){
+          if (newArrayComment2[o].id === newArrayComment2[p].id && o !== p){
+            newArrayComment2.splice(p,1)
+          }
+        }
+      }
+      return newArrayComment2
+
+    case EDIT_COMMENT_SUCCESS:
       return state
+
     default:
       return state
   }

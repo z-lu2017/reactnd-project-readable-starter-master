@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {deletePosts, upvotePost, downvotePost, signalID } from '../actions';
+import {deletePosts, upvotePost, downvotePost, signalID, fetchComments } from '../actions';
 import { Redirect } from 'react-router';
+import Comment from './comment';
 
 class PostDetailView extends Component {
   constructor(){
@@ -10,6 +11,11 @@ class PostDetailView extends Component {
     this.state = {
       fireRedirect: false
     }
+  }
+
+  componentDidMount(){
+    var id =this.props.match.params.id;
+    this.props.boundFetchComments(id);
   }
 
   handleClickEdit(id){
@@ -34,12 +40,13 @@ class PostDetailView extends Component {
     var id = this.props.match.params.id;
     var obj = this.props.posts.reducers.posts.filter((p)=>{return p.id === id})[0];
     var date = new Date(obj.timestamp).toString()
+    var comments = this.props.posts.reducers.comments
     return (
       <div className="post">
         <div className="info">
           <h2>{obj.title}</h2>
           <h3>created by {obj.author} on {date}. Category: {obj.category}</h3>
-          <h3>Number of comments</h3>
+          <h3>Number of comments: {obj.commentCount}</h3>
         </div>
         <div className="body">
           <p>{obj.body}</p>
@@ -57,6 +64,24 @@ class PostDetailView extends Component {
           <button onClick={()=>{this.handleUpvote(obj)}}>Upvote</button>
           <button onClick={()=>{this.handleDownvote(obj)}}>Downvote</button>
         </div>
+        <div className="comments">
+          <ol className="posts">
+          {
+            comments.length>0 ?
+            comments.map( function(c) {
+              return (<li key={c.id}>
+                <Comment comment={c} parentId={obj.id}/>
+              </li>)
+
+            }
+            )
+            :<h3>No one has posted any comment yet :( </h3>
+          }
+          </ol>
+          <div className="newComment">
+            <button><Link to={{pathname: '/new/comment/create', query:{id: obj.id, category: obj.category}}}>Add a comment</Link></button>
+          </div>
+        </div>
         <div className="back">
           <button><Link to={{pathname: '/'}}>Back to post wall</Link></button>
         </div>
@@ -68,9 +93,10 @@ class PostDetailView extends Component {
   }
 }
 
-function mapStateToProps(posts){
+function mapStateToProps(posts, comments){
   return {
-    posts: posts
+    posts: posts,
+    comments: comments
   }
 }
 
@@ -79,7 +105,8 @@ function mapDispatchToProps (dispatch) {
     boundSignalID: (id) => dispatch(signalID(id)),
     boundDeletePosts: (post) => dispatch(deletePosts(post)),
     boundUpVote: (post) => dispatch(upvotePost(post)),
-    boundDownVote: (post) => dispatch(downvotePost(post))
+    boundDownVote: (post) => dispatch(downvotePost(post)),
+    boundFetchComments: (id) => dispatch(fetchComments(id))
   }
 }
 

@@ -41,7 +41,7 @@ class Post extends Component {
         <div className="info">
           <h2>{this.props.post.title}</h2>
           <h3>created by {this.props.post.author} on {date}. Category: {this.props.post.category}</h3>
-          <h3>Number of comments</h3>
+          <h3>Number of comments: {this.props.post.commentCount}</h3>
         </div>
         <div className="edit">
           <button onClick={()=>{this.detailView(this.props.post)}}>View Detail</button>

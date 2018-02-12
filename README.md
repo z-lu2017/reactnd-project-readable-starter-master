@@ -22,3 +22,6 @@ To get started developing right away:
 Information about the API server and how to use it can be found in its [README file](api-server/README.md).
 
 ### UUID generation code from Joao Victor: https://codepen.io/Jvsierra/pen/BNbEjW
+### Redirect: https://gist.github.com/verticalgrain/195468e69f2ac88f3d9573d285b09764
+
+#### styling used: https://www.w3schools.com/howto/howto_css_round_buttons.asp

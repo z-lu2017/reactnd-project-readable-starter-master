@@ -2,26 +2,27 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { load as loadAccount } from '../actions'
+import './InitializeFromStateForm.css'
 
 let InitializeFromStateForm = props => {
   const { handleSubmit, load, pristine, reset, submitting } = props
   return (
     <form onSubmit={handleSubmit}>
-        <div>
+        <div className="input">
           <label htmlFor="Title">Title</label>
           <Field name="title" component="input" type="text"  id="title"/>
         </div>
-        <div>
+        <div className="input">
           <label htmlFor="Author">Author</label>
           <Field name="author" component="input" type="text" id="author"/>
         </div>
-        <div>
+        <div className="input">
           <label htmlFor="Body">Content</label>
           <Field name="body" component="input" type="text" id="body"/>
         </div>
-        <div>
-            <label>Cateogry</label>
-            <div>
+        <div className="select input">
+            <label className="Category">Cateogry</label>
+            <div className="dropdown">
               <Field name="category" component="select" id="category">
                 <option></option>
                 <option value="react">React</option>
@@ -30,7 +31,7 @@ let InitializeFromStateForm = props => {
               </Field>
             </div>
           </div>
-        <button type="submit">Submit</button>
+        <button type="submit" className="btn">Submit</button>
       </form>
   )
 }

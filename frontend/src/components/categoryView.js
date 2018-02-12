@@ -46,7 +46,6 @@ class categoryView extends Component {
 
   render() {
     var category = this.props.match.params.category
-    console.log("thisprops in cate", this.props)
     return (
       <div className="listView">
       <div className="list">

@@ -1,0 +1,34 @@
+form {
+  margin: 0 auto;
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em;
+}
+
+label{
+  margin-right: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.select{
+  margin: auto;
+  padding: auto;
+}
+
+.Category{
+  float:left;
+}
+
+.dropdown{
+  margin-left: 1em;
+}
+
+.input{
+  margin-bottom: 1em;
+}
+
+.btn {
+  padding: 0.5em;
+  margin-left: 0;
+}

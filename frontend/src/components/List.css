@@ -1,19 +1,11 @@
-/* Dropdown Button */
 .dropbtn {
-    background-color: #4CAF50;
+    background-color: DodgerBlue;
     color: white;
-    padding: 16px;
+    padding: 1em;
     font-size: 16px;
-    border: none;
+    border-radius: 12px;
 }
 
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -23,7 +15,6 @@
     z-index: 1;
 }
 
-/* Links inside the dropdown */
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -31,15 +22,48 @@
     display: block;
 }
 
-/* Change color of dropdown links on hover */
 .dropdown-content a:hover {background-color: #ddd}
 
-/* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
-    background-color: #3e8e41;
+    background-color: Blue;
+}
+
+.view{
+  width: 75%;
+  margin: auto;
+  padding: 1em;
+}
+
+.categoryView{
+  width: 20%;
+  float: left;
+}
+
+.newPost{
+  margin-left: 2em;
+}
+
+.sortButton{
+  margin-left: 20%;
+  background-color: DodgerBlue;
+  color: white;
+  padding: 1em;
+  font-size: 16px;
+  border-radius: 12px;
+}
+
+.sortButton:hover {
+    background-color: Blue;
+}
+
+.postsList{
+  margin-top: 2em;
+}
+
+.title{
+  text-align: center;
 }

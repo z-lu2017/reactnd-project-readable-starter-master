@@ -48,19 +48,21 @@ class List extends Component {
     return (
       <div className="listView">
       <div className="list">
-        <h2>Posts Board</h2>
-        <div className = "sortPanel">
-          <button onClick={()=>{this.sortDate()}}>Sort by date</button>
-          <button onClick={()=>{this.sortScore()}}>Sort by vote score</button>
-        </div>
-        <div className = "categoryView">
-          <div className="dropdown">
-            <button className="dropbtn">View by Category</button>
-            <div className="dropdown-content">
-              <Link to='/react'>React</Link>
-              <Link to='/redux'>Redux</Link>
-              <Link to='/udacity'>Udacity</Link>
+        <div className="title"><h1>Posts Board</h1></div>
+        <div className="view">
+          <div className = "categoryView">
+            <div className="dropdown">
+              <button className="dropbtn">View by Category</button>
+              <div className="dropdown-content">
+                <Link to='/react'>React</Link>
+                <Link to='/redux'>Redux</Link>
+                <Link to='/udacity'>Udacity</Link>
+              </div>
             </div>
+          </div>
+          <div className = "sortPanel">
+            <button className="sortButton" onClick={()=>{this.sortDate()}}>Sort by date</button>
+            <button className="sortButton" onClick={()=>{this.sortScore()}}>Sort by vote score</button>
           </div>
         </div>
         <div className="postsList">

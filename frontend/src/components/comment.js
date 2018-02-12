@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import {deleteComments, upvoteComments, downvoteComments} from '../actions';
 import {connect} from 'react-redux';
-import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 
 
 class Comment extends Component {
-  constructor(){
-    super();
-  }
-
   handleUpvote(comment){
     this.props.boundUpvoteComment(comment)
   }
@@ -35,8 +30,8 @@ class Comment extends Component {
           <div className="vote">
             {
               c.voteScore>0 ?
-              <h3>So far {c.voteScore} people have upvoted this post!</h3>
-              :<h3>So far {-c.voteScore} people have downvoted this post!</h3>
+              <h3>So far {c.voteScore} people have upvoted this comment!</h3>
+              :<h3>So far {-c.voteScore} people have downvoted this comment!</h3>
             }
             <button onClick={()=>{this.handleUpvote(c)}}>Upvote Comment</button>
             <button onClick={()=>{this.handleDownvote(c)}}>Downvote Comment</button>

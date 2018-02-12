@@ -52,7 +52,7 @@ class PostDetailView extends Component {
           <p>{obj.body}</p>
         </div>
         <div className="edit">
-          <Link to={`/edit`}><button onClick={()=>{this.handleClickEdit(obj.id)}}>Edit</button></Link>
+          <Link to={`/edit/post/${obj.id}`}><button onClick={()=>{this.handleClickEdit(obj.id)}}>Edit</button></Link>
           <button onClick={()=>{this.handleDelete(obj)}}>Delete</button>
         </div>
         <div className="vote">
@@ -69,10 +69,11 @@ class PostDetailView extends Component {
           {
             comments.length>0 ?
             comments.map( function(c) {
-              return (<li key={c.id}>
-                <Comment comment={c} parentId={obj.id}/>
-              </li>)
-
+              if (!c.deleted){
+                return (<li key={c.id}>
+                  <Comment comment={c} parentId={obj.id}/>
+                </li>)
+              }
             }
             )
             :<h3>No one has posted any comment yet :( </h3>

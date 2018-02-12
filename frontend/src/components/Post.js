@@ -45,7 +45,7 @@ class Post extends Component {
         </div>
         <div className="edit">
           <button onClick={()=>{this.detailView(this.props.post)}}>View Detail</button>
-          <Link to={`/edit`} params={{ id: this.props.post.id }}><button onClick={()=>{this.handleClickEdit(this.props.post.id)}}>Edit</button></Link>
+          <Link to={`/edit/post/${this.props.post.id}`} params={{ id: this.props.post.id }}><button onClick={()=>{this.handleClickEdit(this.props.post.id)}}>Edit</button></Link>
           <button onClick={()=>{this.handleDelete(this.props.post)}}>Delete</button>
         </div>
         <div className="vote">

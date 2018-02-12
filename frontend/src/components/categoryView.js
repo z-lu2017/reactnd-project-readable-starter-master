@@ -59,9 +59,9 @@ class categoryView extends Component {
           <div className="dropdown">
             <button className="dropbtn">{category}</button>
             <div className="dropdown-content">
-              <Link to='/views/posts/react'>React</Link>
-              <Link to='/views/posts/redux'>Redux</Link>
-              <Link to='/views/posts/udacity'>Udacity</Link>
+              <Link to='/react'>React</Link>
+              <Link to='/redux'>Redux</Link>
+              <Link to='/udacity'>Udacity</Link>
             </div>
           </div>
         </div>

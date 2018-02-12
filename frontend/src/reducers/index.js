@@ -184,10 +184,11 @@ function comments(state = initialComments, action){
       return state
 
     case DELETE_COMMENT:
-      var commentCopy = comment
-      commentCopy.deleted = !commentCopy.deleted
+      var commentCopy3 = comment
+      commentCopy3.deleted = !commentCopy3.deleted
       const newStateComment3 = state.filter((c)=>{return c.id !== comment.id})
-      newStateComment3.push(commentCopy)
+      newStateComment3.push(commentCopy3)
+      console.log("what is newstatecomment3", newStateComment3)
       return newStateComment3
 
     case DELETE_COMMENT_SUCCESS:

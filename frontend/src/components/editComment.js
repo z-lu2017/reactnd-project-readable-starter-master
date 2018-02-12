@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import {connect} from 'react-redux';
-import InitializeFromStateForm from './InitializeFromStateForm';
 import {editComments} from '../actions';
 
 class editComment extends Component {

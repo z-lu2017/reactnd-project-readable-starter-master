@@ -49,11 +49,11 @@ class createComment extends Component {
         <form onSubmit={this.submit.bind(this)}>
             <div>
               <label htmlFor="Author">Author</label>
-              <input name="author" component="input" type="text" id="author"/>
+              <input name="author" component="input" type="text" id="author" required />
             </div>
             <div>
               <label htmlFor="Body">Content</label>
-              <input name="body" component="input" type="text" id="body"/>
+              <input name="body" component="input" type="text" id="body" required />
             </div>
             <button type="submit">Submit</button>
           </form>

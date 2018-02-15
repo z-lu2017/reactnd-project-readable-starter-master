@@ -57,7 +57,7 @@ class PostDetailView extends Component {
       </div>)
     }
     var obj = this.props.posts.reducers.singlePost;
-    var date = new Date(obj.timestamp).toString()
+    var date = new Date(obj.timestamp).toString();
     var comments = this.props.posts.reducers.comments
     return (
       <div className="post">

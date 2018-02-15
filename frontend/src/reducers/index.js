@@ -89,7 +89,6 @@ function posts(state = initialBoardState, action){
       var postCopy = post
       postCopy.deleted = !postCopy.deleted
       const newState3 = state.filter((p)=>{return p.id !== post.id})
-      newState3.push(postCopy)
       return newState3
 
     case DELETE_POST_SUCCESS:

@@ -40,10 +40,22 @@ class PostDetailView extends Component {
     this.props.boundDownVote(post)
   }
 
+  isEmpty(obj) {
+      for(var key in obj) {
+          if(obj.hasOwnProperty(key))
+              return false;
+      }
+      return true;
+  }
 
   render() {
-    console.log("what is selected", this.props.posts.reducers.singlePost)
-    console.log("what is all posts", this.props.posts.reducers.posts)
+    if (this.isEmpty(this.props.posts.reducers.singlePost)){
+      return (<div className="404">
+        <h2>OOPS! There is no post here :(</h2>
+          <h3>Please use the link below to get back to main page</h3>
+          <Link to={{pathname: `/`}}><button>Back to post wall</button></Link>
+      </div>)
+    }
     var obj = this.props.posts.reducers.singlePost;
     var date = new Date(obj.timestamp).toString()
     var comments = this.props.posts.reducers.comments

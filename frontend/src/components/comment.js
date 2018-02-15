@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import {deleteComments, upvoteComments, downvoteComments} from '../actions';
+import {deleteComments, upvoteComments, downvoteComments, fetchSinglePost} from '../actions';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 
 
 class Comment extends Component {
+  componentDidMount(){
+    this.props.boundFetchSinglePost(this.props.comment.parentId)
+  }
+
   handleUpvote(comment){
     this.props.boundUpvoteComment(comment)
   }
@@ -14,14 +18,13 @@ class Comment extends Component {
   }
 
   handleDelete(comment){
+    console.log("what is comment selecte", comment)
     this.props.boundDeleteComments(comment)
   }
 
   render() {
     var c = this.props.comment
-    var id = c.parentId;
-    var posts = this.props.comments.reducers.posts
-    var parent = posts.filter(function(p){return p.id === id})[0]
+    var parent = this.props.comments.reducers.singlePost
     return (
       <div className="comment" >
           <div className="body">
@@ -44,10 +47,11 @@ class Comment extends Component {
     )}
 }
 
-function mapStateToProps(comments, posts){
+function mapStateToProps(comments, posts, singlePost){
   return {
     comments: comments,
-    posts: posts
+    posts: posts,
+    singlePost: singlePost
   }
 }
 
@@ -55,7 +59,8 @@ function mapDispatchToProps (dispatch) {
   return {
     boundDeleteComments: (comment) => dispatch(deleteComments(comment)),
     boundUpvoteComment: (comment) => dispatch(upvoteComments(comment)),
-    boundDownvoteComment: (comment) => dispatch(downvoteComments(comment))
+    boundDownvoteComment: (comment) => dispatch(downvoteComments(comment)),
+    boundFetchSinglePost: (id) => dispatch(fetchSinglePost(id))
   }
 }
 

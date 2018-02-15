@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {deletePosts, upvotePost, downvotePost, signalID, fetchComments, fetchSinglePost } from '../actions';
+import {deletePosts, upvotePost, downvotePost, signalID,  fetchSinglePost } from '../actions/postReducers';
+import {fetchComments} from '../actions/commentReducers'
 import { Redirect } from 'react-router';
 import Comment from './comment';
 
@@ -13,13 +14,9 @@ class PostDetailView extends Component {
     }
   }
 
-  componentWillMount(){
-    var id = this.props.match.params.id;
-    this.props.boundFetchSinglePost(id);
-  }
-
   componentDidMount(){
     var id =this.props.match.params.id;
+    this.props.boundFetchSinglePost(id);
     this.props.boundFetchComments(id);
   }
 
@@ -49,6 +46,7 @@ class PostDetailView extends Component {
   }
 
   render() {
+    console.log("what is detaillviwee",this.props)
     if (this.isEmpty(this.props.posts.reducers.singlePost)){
       return (<div className="404">
         <h2>OOPS! There is no post here :(</h2>

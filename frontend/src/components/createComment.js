@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
-import {addComments} from '../actions';
+import {addComments} from '../actions/commentReducers';
 import {connect} from 'react-redux';
 
 

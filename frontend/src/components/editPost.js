@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import {connect} from 'react-redux';
 import InitializeFromStateForm from './InitializeFromStateForm';
-import {editPosts} from '../actions';
+import {editPosts} from '../actions/postReducers';
 
 class editPost extends Component {
   constructor(){

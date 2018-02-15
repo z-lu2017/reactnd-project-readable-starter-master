@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {deleteComments, upvoteComments, downvoteComments, fetchSinglePost} from '../actions';
+import {deleteComments, upvoteComments, downvoteComments} from '../actions/commentReducers';
+import {fetchSinglePost} from '../actions/postReducers';
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 

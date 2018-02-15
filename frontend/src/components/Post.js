@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {deletePosts, upvotePost, downvotePost, signalID } from '../actions';
+import {deletePosts, upvotePost, downvotePost, signalID } from '../actions/postReducers';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';

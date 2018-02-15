@@ -1,11 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
-import { load as loadAccount } from '../actions'
 import './InitializeFromStateForm.css'
 
 let InitializeFromStateForm = props => {
-  const { handleSubmit, load, pristine, reset, submitting } = props
+  const { handleSubmit, submitting } = props
   return (
     <form onSubmit={handleSubmit}>
         <div className="input">

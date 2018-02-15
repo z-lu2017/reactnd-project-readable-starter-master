@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import {connect} from 'react-redux';
-import {editComments} from '../actions';
+import {editComments} from '../actions/commentReducers';
 
 class editComment extends Component {
   constructor(){

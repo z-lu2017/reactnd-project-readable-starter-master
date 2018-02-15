@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import NewForm from './form';
-import {addPosts} from '../actions';
+import {addPosts} from '../actions/postReducers';
 import {connect} from 'react-redux';
 
 
@@ -11,6 +11,7 @@ class createPost extends Component {
     this.state = {
       fireRedirect: false
     }
+    this.submit = this.submit.bind(this)
   }
 
   submit(values){
@@ -49,7 +50,7 @@ class createPost extends Component {
   render() {
     return (
       <div>
-        <NewForm onSubmit={this.submit.bind(this)} />
+        <NewForm onSubmit={this.submit} />
         {this.state.fireRedirect && (
           <Redirect to={'/'}/>
         )}

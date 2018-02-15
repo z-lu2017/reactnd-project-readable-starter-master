@@ -27,7 +27,7 @@ import {
   EDIT_COMMENT_SUCCESS,
   FETCH_SINGLE_POST_REQUEST,
   FETCH_SINGLE_POST_SUCCESS
-} from '../actions'
+} from '../actions/index'
 import { combineReducers } from 'redux';
 
 var initialBoardState = []

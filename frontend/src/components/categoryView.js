@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Post from './Post';
 import { Link } from 'react-router-dom'
-import {fetchPosts} from '../actions';
+import {fetchPosts} from '../actions/postReducers';
 
 class categoryView extends Component {
   constructor(){

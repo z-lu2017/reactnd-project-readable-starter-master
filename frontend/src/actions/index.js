@@ -26,6 +26,8 @@ export const DELETE_COMMENT = "DELETE_COMMENT"
 export const DELETE_COMMENT_SUCCESS = "DELETE_COMMENT_SUCCESS"
 export const EDIT_COMMENT = "EDIT_COMMENT"
 export const EDIT_COMMENT_SUCCESS = "EDIT_COMMENT_SUCCESS"
+export const FETCH_SINGLE_POST_REQUEST = "FETCH_SINGLE_POST_REQUEST"
+export const FETCH_SINGLE_POST_SUCCESS = "FETCH_SINGLE_POST_SUCCESS"
 
 function deletePost(post){
   return {
@@ -497,4 +499,40 @@ export function editComments(comment) {
       )
 
 }
+}
+
+function fetchSinglePostRequest(){
+  return {
+    type: FETCH_SINGLE_POST_REQUEST
+  }
+}
+
+function fetchSinglePostSuccess(json){
+  return {
+    type: FETCH_SINGLE_POST_SUCCESS,
+    post: json
+  }
+}
+
+export function fetchSinglePost(id) {
+
+  return function (dispatch) {
+    dispatch(fetchSinglePostRequest(id))
+
+    return fetch('http://localhost:3001/posts/' + id, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'whatever-you-want'
+      },
+    })
+      .then(
+        response => response.json(),
+        error => console.log('An error occurred.', error)
+      )
+      .then(json =>
+        dispatch(fetchSinglePostSuccess(json))
+      )
+  }
 }

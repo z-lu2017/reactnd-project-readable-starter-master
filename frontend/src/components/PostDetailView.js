@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {deletePosts, upvotePost, downvotePost, signalID, fetchComments } from '../actions';
+import {deletePosts, upvotePost, downvotePost, signalID, fetchComments, fetchSinglePost } from '../actions';
 import { Redirect } from 'react-router';
 import Comment from './comment';
 
@@ -11,6 +11,11 @@ class PostDetailView extends Component {
     this.state = {
       fireRedirect: false
     }
+  }
+
+  componentWillMount(){
+    var id = this.props.match.params.id;
+    this.props.boundFetchSinglePost(id);
   }
 
   componentDidMount(){
@@ -37,8 +42,9 @@ class PostDetailView extends Component {
 
 
   render() {
-    var id = this.props.match.params.id;
-    var obj = this.props.posts.reducers.posts.filter((p)=>{return p.id === id})[0];
+    console.log("what is selected", this.props.posts.reducers.singlePost)
+    console.log("what is all posts", this.props.posts.reducers.posts)
+    var obj = this.props.posts.reducers.singlePost;
     var date = new Date(obj.timestamp).toString()
     var comments = this.props.posts.reducers.comments
     return (
@@ -94,10 +100,11 @@ class PostDetailView extends Component {
   }
 }
 
-function mapStateToProps(posts, comments){
+function mapStateToProps(posts, comments, singlePost){
   return {
     posts: posts,
-    comments: comments
+    comments: comments,
+    singlePost: singlePost
   }
 }
 
@@ -107,7 +114,8 @@ function mapDispatchToProps (dispatch) {
     boundDeletePosts: (post) => dispatch(deletePosts(post)),
     boundUpVote: (post) => dispatch(upvotePost(post)),
     boundDownVote: (post) => dispatch(downvotePost(post)),
-    boundFetchComments: (id) => dispatch(fetchComments(id))
+    boundFetchComments: (id) => dispatch(fetchComments(id)),
+    boundFetchSinglePost: (id) => dispatch(fetchSinglePost(id))
   }
 }
 

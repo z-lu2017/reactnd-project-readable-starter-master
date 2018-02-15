@@ -25,13 +25,15 @@ import {
   DELETE_COMMENT_SUCCESS,
   EDIT_COMMENT,
   EDIT_COMMENT_SUCCESS,
+  FETCH_SINGLE_POST_REQUEST,
+  FETCH_SINGLE_POST_SUCCESS
 } from '../actions'
 import { combineReducers } from 'redux';
 
 var initialBoardState = []
 
 function posts(state = initialBoardState, action){
-  const { post, posts } = action
+  const { post, posts, comment } = action
 
   switch (action.type){
     case FETCH_POST_REQUEST:
@@ -118,6 +120,20 @@ function posts(state = initialBoardState, action){
         data: action.data
       }
 
+    case ADD_COMMENT:
+      var parentId = comment.parentId;
+      var addCommentState = state;
+      var parent =  addCommentState.filter((p) => p.id === parentId)[0];
+      parent.commentCount += 1;
+      return addCommentState
+
+    case DELETE_COMMENT:
+      var parentId2 = comment.parentId;
+      var deleteCommentState = state;
+      var parent2 = deleteCommentState.filter((p) => p.id === parentId2)[0];
+      parent2.commentCount -= 1;
+      return deleteCommentState
+
     default:
       return state
   }
@@ -185,9 +201,8 @@ function comments(state = initialComments, action){
 
     case DELETE_COMMENT:
       var commentCopy3 = comment
-      commentCopy3.deleted = !commentCopy3.deleted
+      commentCopy3.deleted = true
       const newStateComment3 = state.filter((c)=>{return c.id !== comment.id})
-      newStateComment3.push(commentCopy3)
       return newStateComment3
 
     case DELETE_COMMENT_SUCCESS:
@@ -223,8 +238,28 @@ function index(state = -1, action){
   }
 }
 
+function singlePost(state={}, action){
+  const {post} = action
+  switch (action.type){
+    case FETCH_SINGLE_POST_REQUEST:
+      return state
+
+    case FETCH_SINGLE_POST_SUCCESS:
+      return post
+
+    case DELETE_COMMENT:
+      var selectedPost = state;
+      selectedPost.commentCount -= 1;
+      return selectedPost
+
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   posts,
   comments,
   index,
+  singlePost
 });
